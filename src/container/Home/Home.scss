@@ -1,0 +1,35 @@
+.app__market {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-color: blue;
+  width: 100%;
+  height: auto;
+  color: white;
+  min-height: 100vh;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  z-index: -10;
+  padding-top: 7rem;
+
+  @media screen and (max-width: 500px) {
+   padding-top: 15rem;
+  }
+}
+
+.app__market-title {
+  font-size: 1.5rem;
+}
+
+.app__market-heading {
+  display: flex;
+  flex-direction: row;
+  justify-content: center 
+}
+
+.app__market-body {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}

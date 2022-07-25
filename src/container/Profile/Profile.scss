@@ -1,0 +1,87 @@
+.app__profile {
+  min-height: 100vh;
+  padding-top: 7rem;
+  color: black;  
+
+  @media screen and (max-width: 500px) {
+   padding-top: 12rem;
+  }
+}
+
+.app__profile-profile {
+  margin: 2rem 5rem;
+  display: flex;  
+  align-items: flex-end;  
+
+  * {
+    letter-spacing: 2px;
+  }
+
+  &>div {
+    margin: 0 2.5rem;
+  }
+
+  @media screen and (max-width: 500px) {
+    flex-wrap: wrap;    
+  }
+}
+
+.profile-claim-btn {
+  background-color: green;
+  border-radius: 10px;
+  color: white;
+  padding: 5px;
+  cursor: pointer;
+
+  &:active {
+    background-color: rgba(0, 128, 0, 0.544);
+  }
+
+  &:hover {
+    color: yellow;
+  }
+}
+
+.app__profile-subtitle {
+  font-size: 1.5rem;
+  margin-left: 4rem;
+  // border: solid 1px ;
+}
+
+
+.my-nfts {
+  margin: 3rem;
+  margin-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.no-nft-msg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  color: gray;
+  margin-top: 1rem;
+}
+
+.sell-nft {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .sell-nft-btn {
+    background-color: rgba(0, 128, 0, 0.649);
+    padding: .5rem 1.5rem;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+
+    &:active {
+      color: rgba(0, 128, 0, 0.649);
+      background-color: white;
+    }
+  }
+}
