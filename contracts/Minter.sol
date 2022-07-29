@@ -14,20 +14,24 @@ contract Minter is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     constructor() ERC721("Minters", "MNTS") {}
 
+    mapping(address => uint[]) ownedNfts;
+
     function safeMint(string memory uri) public {
+        require(bytes(uri).length > 0, "Empty uri");
         uint256 tokenId = _tokenIdCounter.current();
         _tokenIdCounter.increment();
+        ownedNfts[msg.sender].push(tokenId);
         _safeMint(payable(msg.sender), tokenId);
         _setTokenURI(tokenId, uri);
     }
 
-    // get all NFTs "msg.sender" has minted
+    /// @dev get all NFTs "msg.sender" has minted
     function myNfts() public view returns (uint256[] memory) {
         uint256[] memory tokens = new uint256[](balanceOf(msg.sender));
         uint256 index = 0;
-        for (uint256 i = 0; i < _tokenIdCounter.current(); i++) {
-            if (ownerOf(i) == msg.sender) {
-                tokens[index++] = i;
+        for (uint256 i = 0; i < ownedNfts[msg.sender].length; i++) {
+            if (ownerOf(ownedNfts[msg.sender][i]) == msg.sender) {
+                tokens[index++] = ownedNfts[msg.sender][i];
             }
         }
         return tokens;
