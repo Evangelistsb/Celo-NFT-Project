@@ -46,7 +46,7 @@ const Home = ({ updateBalance, sealsContract, minterContract }) => {
             </div>
             <div className="app__market-body">
               {/* display all NFTs */}
-              {nfts ? (
+              {nfts.length == 0 ? (
                 <div>No NFT to display at the moment</div>
               ) : (
                 nfts.map((_nft) => (
