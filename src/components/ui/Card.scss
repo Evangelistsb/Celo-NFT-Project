@@ -1,6 +1,7 @@
 .nft-card {
   height: 600px;
   width: 400px;
+  margin-left: 2rem;
   box-shadow: rgba(128, 128, 128, 0.301) 0px 2px 4px;
   color: black;
   background-color: rgb(207, 204, 204);
@@ -23,7 +24,7 @@
 }
 
 .card-img {
-  height: 40%;
+  height: 50%;
   width: 100%;
   img {
     height: 100%;

@@ -36,7 +36,7 @@ const NftCard = ({ nft, placeBid, closeDeal }) => {
         <div className="card-header">
           <Identicon address={createdBy} size={50} />
           <div className="card-highest-bid">
-            {highestBid == 0
+            {highestBid === 0
               ? fromEthers(minBid)
               : fromEthers(highestBid)} CELO
           </div>
@@ -69,7 +69,7 @@ const NftCard = ({ nft, placeBid, closeDeal }) => {
             </div>
           </div>
           <div className="card-action">
-            {createdBy == defaultAccount ? (
+            {createdBy === defaultAccount ? (
               <button
                 className="card-button"
                 onClick={() =>
@@ -78,7 +78,7 @@ const NftCard = ({ nft, placeBid, closeDeal }) => {
               >
                 Close Deal
               </button>
-            ) : highestBidder == defaultAccount ? (
+            ) : highestBidder === defaultAccount ? (
               <div className="card-button-text">Deal not closed yet</div>
             ) : (
               <Bid
