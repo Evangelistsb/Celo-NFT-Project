@@ -146,7 +146,7 @@ export const createDeal = async (
     }
     // Create a deal with the "tokenId"
     try {
-      const platformPrice = await sealsContract.methods.platformPrice().call();
+      const platformPrice = await sealsContract.methods.plaformPrice().call();
       await sealsContract.methods
         .createDeal(tokenId, _minBid)
         .send({ from: defaultAccount, value: platformPrice });
