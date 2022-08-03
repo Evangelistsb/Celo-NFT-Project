@@ -23,6 +23,7 @@ contract Seals is Ownable, IERC721Receiver {
         address payable highestBidder;
         uint256 highestBid;
         uint256 bidsCount;
+        uint256 endTimeStamp;
         bool ended;
     }
 
@@ -47,7 +48,7 @@ contract Seals is Ownable, IERC721Receiver {
     }
 
     // create a new deal and add to platform
-    function createDeal(uint256 _tokenId, uint256 _minBid) public payable {
+    function createDeal(uint256 _tokenId, uint256 _minBid, uint256 _time) public payable {
         require(msg.value >= _plaformPrice, "Placement price sent too low");
         require(
             _minBid > 1 ether,
@@ -71,15 +72,30 @@ contract Seals is Ownable, IERC721Receiver {
             payable(address(0)),
             0,
             0,
+            //Time in minutes
+            block.timestamp + (_time * 60),
             false
         );
         emit CreateDeal(msg.sender, dealsCreated, _minBid);
         dealsCreated++;
     }
 
+    function withdrawDeal(uint256 _dealId) public {
+        Deal storage deal = deals[_dealId];
+        require(msg.sender == deal.createdBy, "Only the owner can withdraw the deal");
+        nftContract.safeTransferFrom(address(this), msg.sender, deal.tokenId);
+        // reset deal properties
+        deal.highestBidder = payable(address(0));
+        deal.highestBid = 0;
+        deal.bidsCount = 0;
+        deal.minBid = 0;
+        deal.ended = true;
+        dealsClosed++;
+    }
     // place bid on already existing auction on the platform
     function placeBid(uint256 _dealId) public payable {
         Deal storage deal = deals[_dealId];
+        require(block.timestamp < deal.endTimeStamp, "Deal closed");
         require(deal.createdBy != msg.sender, "You can't bid on your own deal");
         require(
             deal.highestBidder != msg.sender,
@@ -107,6 +123,7 @@ contract Seals is Ownable, IERC721Receiver {
     // close a currently active deal
     function closeDeal(uint256 _dealId) public created(_dealId) {
         Deal storage deal = deals[_dealId];
+        require(block.timestamp > deal.endTimeStamp, "Time not over ");
         require(
             deal.bidsCount > 0,
             "You must have atleast one bid before closing a deal"
